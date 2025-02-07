@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QR Code Generator</title>
+    <style>
+        /* Modern 3D Design with Gradient */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: background 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        input[type="text"]::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        button:not(:disabled):hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        button:not(:disabled):active {
+            transform: translateY(0);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 3D Effect for Form */
+        .form-group input {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-group input:focus {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>QR Code Generator</h1>
+        <form method="POST" onsubmit="return validateForm()">
+            <div class="form-group">
+                <label for="data">Enter text or URL:</label>
+                <input type="text" id="data" name="data" placeholder="" required>
+            </div>
+            <div class="form-group">
+                <label for="fill_color">QR Code Color:</label>
+                <input type="text" id="fill_color" name="fill_color" placeholder="Use small letter" required>
+            </div>
+            <div class="form-group">
+                <label for="back_color">Background Color:</label>
+                <input type="text" id="back_color" name="back_color" placeholder="Use small letter" required>
+            </div>
+            <button type="submit" id="generateBtn">Generate QR Code</button>
+        </form>
+    </div>
+
+    <script>
+        // Form Validation
+        function validateForm() {
+            const data = document.getElementById('data').value;
+            const fillColor = document.getElementById('fill_color').value;
+            const backColor = document.getElementById('back_color').value;
+
+            if (!data || !fillColor || !backColor) {
+                alert('Please fill in all fields before generating the QR code.');
+                return false;
+            }
+            return true;
+        }
+
+        // Disable button if any field is empty
+        const inputs = document.querySelectorAll('input');
+        const generateBtn = document.getElementById('generateBtn');
+
+        inputs.forEach(input => {
+            input.addEventListener('input', () => {
+                const allFilled = Array.from(inputs).every(input => input.value.trim() !== '');
+                generateBtn.disabled = !allFilled;
+            });
+        });
+    </script>
+</body>
+</html>
